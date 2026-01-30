@@ -1,0 +1,188 @@
+--------------------------------------------------------------------misc---------------------------------------------------------------------
+
+/*
+function NewHubCourse5EnvSprites()
+{
+
+	// Normally an edit like this should go into an mp_coop_lobby_# script, but im unsure of how course 5 hub swapping would work if we did this in a different script
+	// It's a lot safer to do this here (in my opinion) even if it looks more cluttered with more code
+
+	local lookForEnvSprites = null
+	local spriteCounterB = 0
+	local spriteCounterO = 0
+
+	while ((lookForEnvSprites = Entities.FindByClassname(lookForEnvSprites, "env_sprite")) != null)
+	{
+		if (lookForEnvSprites.GetName() == "track5-blue_sprite")
+		{
+			spriteCounterB = spriteCounterB + 1
+		}
+
+		if (lookForEnvSprites.GetName() == "track5-orangeblue_sprite")
+		{
+			spriteCounterB = spriteCounterB + 1
+		}
+
+		if (spriteCounterB >= 10 && spriteCounterO >= 10)
+		{
+			return
+		}
+	}
+
+	local blueC5EnvSprite = Entities.CreateByClassname("env_sprite")
+	blueC5EnvSprite.SetOrigin(Vector(3648 3134 -64))
+	blueC5EnvSprite.__KeyValueFromString("model", "sprites/glow01.spr")
+	//blueC5EnvSprite.SetModel("sprites/glow01.spr")
+	blueC5EnvSprite.SetModel("models/props/metal_box.mdl")
+	blueC5EnvSprite.SetAngles(-0, -90, 0)
+	blueC5EnvSprite.__KeyValueFromString("targetname", "track5-blue_sprite")
+	//blueC5EnvSprite.__KeyValueFromString("targetname", "littlebluebox's_env_sprite")
+	EntFireByHandle(blueC5EnvSprite, "color", "221 136 21", 0, null, null)
+	EntFireByHandle(blueC5EnvSprite, "enabledraw", "", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("rendermode", "9")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "rendermode 9", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("scale", ".05")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "scale .05", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("spawnflags", "1")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "spawnflags 1", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("GlowProxySize", "2.0")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "GlowProxySize 2.0", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("HDRColorScale", "1.0")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "HDRColorScale 1.0", 0, null, null)
+	blueC5EnvSprite.__KeyValueFromString("framerate", "10.0")
+	//EntFireByHandle(blueC5EnvSprite, "addoutput", "framerate 10.0", 0, null, null)
+	printl("Env_sprite was made!")
+}
+
+NewHubCourse5EnvSprites()
+*/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------mp_coop_start----------------------------------------------------------------
+
+/*
+	local triggerOnce = null
+	local portalgun = null
+
+	while ((triggerOnce = Entities.FindByClassname(triggerOnce, "trigger_once")) != null)
+	{
+		if ((triggerOnce.GetOrigin() - Vector(-10004, -4400, 32)).Length() <= 1)
+		{
+			EntFireByHandle(triggerOnce, "addoutput", "OnTrigger ping_instructor_hint_A_1:addoutput:hint_local_player_only 1", 0, null, null)
+			EntFireByHandle(triggerOnce, "addoutput", "OnTrigger ping_instructor_hint_A_1:ShowHint:blue", 0, null, null)
+
+			EntFireByHandle(triggerOnce, "addoutput", "OnTrigger ping_instructor_hint_A_2:addoutput:hint_local_player_only 1", 0, null, null)
+			EntFireByHandle(triggerOnce, "addoutput", "OnTrigger ping_instructor_hint_A_2:ShowHint:red", 0, null, null)
+
+			triggerOnce.__KeyValueFromString("targetname", "bottom_portalgun_room_trigger")
+		}
+	}
+
+	while ((portalgun = Entities.FindByClassname(portalgun, "weapon_portalgun")) != null)
+	{
+		if (portalgun.GetName() == "portalgun_blue")
+		{
+			EntFireByHandle(portalgun, "addoutput", "OnPlayerPickup ping_instructor_hint_A_1:EndHint", 0, null, null)
+		}
+
+		else if (portalgun.GetName() == "portalgun_orange")
+		{
+			EntFireByHandle(portalgun, "addoutput", "OnPlayerPickup ping_instructor_hint_A_2:EndHint", 0, null, null)
+		}
+	}
+*/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------mp_coop_laser_crusher------------------------------------------------------------
+
+		//IncludeScript("mapedits/mp_coop_laser_crusher/mp_coop_laser_crusher-trigger-move.nut")
+		//local tubeCube1 = Entities.CreateByClassname("prop_dynamic")
+		//tubeCube1.__KeyValueFromString("origin", "2017 -1794.15 795.88")
+		//tubeCube1.__KeyValueFromString("model", "models/props_vac_anim/metal_box_lowres.mdl")
+		//tubeCube1.__KeyValueFromString("targetname", "tube_cube_1")
+
+		//local timer1 = Entities.CreateByClassname("logic_timer")
+		//timer1.__KeyValueFromString("targetname", "tubeCubeTimer1")
+		//timer1.__KeyValueFromString("UpperRandomBound", "1")
+		//EntFire("tubeCubeTimer1","disable")
+
+		//local script = Entities.CreateByClassname("logic_script")
+		//script.__KeyValueFromString("targetname", "tubeCubesScript")
+		//script.__KeyValueFromString("vscripts", "mapedits/mp_coop_laser_crusher.nut")
+
+		//EntFire("InstanceAuto37-spawner_timer","addoutput", "onTimer tubeCubesScript:RunScriptCode:tube(1):1.4299")
+		//EntFire("InstanceAuto38-spawner_timer","addoutput", "onTimer tubeCubesScript:RunScriptCode:tube(2):1.7100")
+
+/*
+		local filterTubeCubes = Entities.CreateByClassname("filter_activator_name")
+		filterTubeCubes.__KeyValueFromString("targetname", "tubeCubeFilter")
+		filterTubeCubes.__KeyValueFromString("Negated", "Allow entities that match criteria")
+		filterTubeCubes.__KeyValueFromString("filtername", "AutoInstance2-reflectocube_dropper_box")
+
+		local trigger = null
+		while ((trigger = Entities.FindByClassname(trigger, "trigger_multiple")) != null)
+		{
+
+			local pos = trigger.GetOrigin()
+			local target = Vector(2192, -1799.21, -128) // Trigger pos pulled directly from Hammer
+
+			if ((pos - target).Length() < 1.0 || trigger.GetName() == "fizzleTrigger") // 2nd check is debug, used in case we already found and moved the trigger
+			{
+				trigger.__KeyValueFromString("targetname", "fizzleTrigger")
+				//EntFire("fizzleTrigger", "addoutput", "origin 2192 -1799.21 -600")
+				trigger.__KeyValueFromString("filtername", "tubeCubeFilter")
+				printl("test")
+			}
+		}
+*/
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------mp_coop_lobby_#---------------------------------------------------------------
+
+/*
+			local notMovedYet = false
+
+			foreach (dbluepos in c5DoorsListBPos)
+			{
+				if (abs(dblue.GetOrigin().x - dbluepos.x) <= 1)
+				{
+					notMovedYet = true
+					break
+				}
+				else
+				{
+					notMovedYet = false
+				}
+			}
+
+			printl("Blue C5 Moved: " + notMovedYet.tostring())
+
+			if (notMovedYet)
+			{
+*/
+
+/*
+			local notMovedYet = false
+
+			foreach (doranpos in c5DoorsListOPos)
+			{
+				if (abs(doran.GetOrigin().x - doranpos.x) <= 0.1)
+				{
+					notMovedYet = true
+					break
+				}
+				else
+				{
+					notMovedYet = false
+				}
+			}
+
+			printl("Orange C5 Moved: " + notMovedYet.tostring())
+
+			if (notMovedYet)
+			{
+*/
+---------------------------------------------------------------------------------------------------------------------------------------------
