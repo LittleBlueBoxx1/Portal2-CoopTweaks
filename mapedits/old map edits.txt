@@ -57,6 +57,32 @@ function NewHubCourse5EnvSprites()
 NewHubCourse5EnvSprites()
 */
 
+
+
+/*
+
+		local ogAmbPos = ambientGeneric.GetOrigin()
+		ambientGeneric.Destroy()
+
+		local newAmbientGen = Entities.CreateByClassname("ambient_generic")
+//Portal.OGButtonDepress
+//Portal.OGButtonRelease
+		newAmbientGen.__KeyValueFromString("message", "Portal.OGButtonDepress")
+		newAmbientGen.__KeyValueFromString("targetname", "team_door-snd_airlock_button_dn")
+		newAmbientGen.__KeyValueFromString("health", "10")
+		newAmbientGen.__KeyValueFromString("pitch", "100")
+		newAmbientGen.__KeyValueFromString("pitchstart", "100")
+		newAmbientGen.__KeyValueFromString("spawnflags", "48")
+		newAmbientGen.__KeyValueFromString("radius", "1250")
+		newAmbientGen.SetOrigin(ogAmbPos)
+
+		// If we don't break here, this loop would run forever, creating an infinite number of ambient_generics, which crashes due to no free edicts
+		// This also assumes that there's only ONE of these per map
+			// This is fine in c5 specifically bc thats the only time this runs, but in a different map, you'd have to do this ever so slightly differently
+		break 
+
+*/
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------mp_coop_start----------------------------------------------------------------

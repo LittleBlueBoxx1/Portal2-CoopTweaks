@@ -37,7 +37,7 @@ function fixCheckpoints()
 						EntFireByHandle(trigger, "addoutput", endTouch, 0.5, null, null)
 					}
 
-					else if (trigger.GetName().find("orange"))
+					else if (trigger.GetName().find("red")) // For some reason they use the name red instead of orange
 					{
 						local startTouch = "OnStartTouchOrangePlayer " + dropper.GetName() + "_door:setanimation:open"
 						local endTouch = "OnEndTouchOrangePlayer " + dropper.GetName() + "_door:setanimation:close"
