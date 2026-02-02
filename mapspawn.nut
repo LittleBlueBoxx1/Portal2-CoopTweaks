@@ -51,6 +51,7 @@ function MapEdits()
 	if (curMap.find("mp_coop") != null && (curMap in courseFive))
 	{
 		EntFire("@command","command","script_execute mapedits/c5_fix_exit", 2)
+		EntFire("@command","command","script_execute mapedits/c5_fix_exit_sound", 2)
 		EntFire("@command","command","script_execute mapedits/c5_fix_checkpoint", 2)
 	}
 
