@@ -1,5 +1,11 @@
 function fixExitPlayerSound()
 {
+
+	if (GetMapName() == "mp_coop_paint_red_racer")
+	{
+		return
+	}
+
 	local ambientGenericDn = null
 	local ambientGenericUp = null
 	local relayExitDoorOpen = null
