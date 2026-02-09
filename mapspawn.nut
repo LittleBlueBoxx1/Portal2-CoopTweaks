@@ -15,10 +15,34 @@ function ezEntFire(ent, inp, arg, del = 0, act = null, cal = null)
 	EntFireByHandle(ent, inp, arg, del, act, cal)
 }
 
+function execScript(name, delay = 0.1, mapNameInPath = true)
+{
+
+	local cmd = null
+
+	if (mapNameInPath == true)
+	{
+		cmd = "script_execute mapedits/" + curMap + "/" + name
+	}
+	else
+	{
+		cmd = "script_execute mapedits/" + name
+	}
+
+	if (delay == 0)
+	{
+		SendToConsole(cmd)
+	}
+	else
+	{
+		EntFire("@command", "command", cmd, delay)
+	}
+}
+
 function MapEdits()
 {
 
-	// For some reason some Source games do 2 passes with mapspawn
+	// For some reason some Source games do 2+ passes with mapspawn
 	// If the game runs mapsapwn on first pass, some functions get broken due to things not being loaded correctly
 	// Therefore we force mapspawn to only work correctly on second pass when entities and functions are loaded properly
 	// We can easily check for this by seeing if the map name is loaded correctly and return if we're on first pass
@@ -42,17 +66,40 @@ function MapEdits()
 		mp_coop_paint_longjump_intro = null
 	}
 
-/*
-	if (curMap.find("mp_coop") != null && !(curMap in courseFive))
-	{
-		EntFire("@command","command","script_execute mapedits/swapdisassemblers", 2)
+	local courseThree = {
+		mp_coop_wall_intro = null,
+		mp_coop_wall_2 = null,
+		mp_coop_catapult_wall_intro = null,
+		mp_coop_wall_block = null,
+		mp_coop_catapult_2 = null,
+		mp_coop_turret_walls = null,
+		mp_coop_turret_ball = null,
+		mp_coop_wall_5 = null
 	}
-*/
+
+	//if (curMap.find("mp_coop") != null && !(curMap in courseFive))
+	//{
+	//	EntFire("@command","command","script_execute mapedits/swapdisassemblers", 2)
+	//}
+
+	//if (curMap.find("mp_coop") != null)
+	//{
+	//	EntFire("@command","command","script_execute mapedits/activatedFaithPlates", 0.1)
+	//}
+
 	if (curMap.find("mp_coop") != null && (curMap in courseFive))
 	{
 		EntFire("@command","command","script_execute mapedits/c5_fix_exit", 2)
 		EntFire("@command","command","script_execute mapedits/c5_fix_exit_sound", 2)
 		EntFire("@command","command","script_execute mapedits/c5_fix_checkpoint", 2)
+	}
+
+	if (curMap.find("mp_coop") != null && (curMap in courseThree) && curMap != "mp_coop_wall_5")
+	{
+		EntFire("prop_button","skin","1", 0.1)
+		EntFire("prop_wall_projector","skin","1", 0.1)
+		EntFire("npc_security_camera", "skin", "1", 0.1)
+		EntFire("npc_portal_turret_floor", "skin", "1", 0.1)
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +117,18 @@ function MapEdits()
 	{
 		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/c5_blue_lights", 0.1)
 		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/rainbowAnnoyLightsSetUp", 0.1)
-		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/rainbowAnnoyLights", 0.1)
+		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/rainbowAnnoyLightsCX/rainbowAnnoyLights", 0.1)
+		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/fixLowresCatwalk", 0.1)
+		EntFire("catapult", "addoutput", "OnCatapulted catapult_model:skin:1", 0.1)
+		EntFire("catapult", "addoutput", "OnCatapulted catapult_model:skin:0:1.5", 0.1)
+		EntFire("catapult_paint", "addoutput", "OnCatapulted catapult_model_paint:skin:1", 0.1)
+		EntFire("catapult_paint", "addoutput", "OnCatapulted catapult_model_paint:skin:0:1.5", 0.1)
+		//EntFire("catapult_paint", "addoutput", "OnCatapulted sprite_catapult_paint:ShowSprite::0.01")
+
+		if (curMap == "mp_coop_lobby_3")
+		{
+			EntFire("@command","command","script_execute mapedits/mp_coop_lobby/dlcReturnFix", 0.1)
+		}
 	}
 
 /*
@@ -99,8 +157,6 @@ function MapEdits()
 		EntFire("timer_1", "addoutput", "origin 830.9 -408 392")
 		EntFire("timer_4", "addoutput", "origin 830.9 -360 392")
 		EntFire("timer_3", "addoutput", "origin 830.9 -312 392")
-
-		//note: add more timers to buttns in second room?
 	}
 
 	if (curMap == "mp_coop_laser_2")
@@ -180,12 +236,19 @@ function MapEdits()
 		EntFire("fizzledoor_R_1","addoutput","OnBlockedClosing !activator:sethealth:-99999999")
 		EntFire("fizzledoor_R_1","addoutput","OnBlockedClosing !activator:sethealth:-99999999")
 		EntFire("fizzledoor_R_1","addoutput","OnBlockedClosing !activator:sethealth:-99999999")
+
+		execScript("activatedFaithPlates", 0.1)
 	}
 
-	if (curMap == "mp_coop_catapult_1")
+	if (curMap == "mp_coop_multifling_1")
 	{
-		EntFire("button_timer_1","kill")
-		EntFire("button_timer_2","kill")
+		execScript("activatedFaithPlates", 0.1)
+	}
+
+	if (curMap == "mp_coop_fling_crushers")
+	{
+		execScript("invisButtons", 0.1)
+		execScript("activatedFaithPlates", 0.1)
 	}
 
 	if (curMap == "mp_coop_fan")
@@ -200,11 +263,34 @@ function MapEdits()
 
 		// Original position with fixed wall offset
 		//EntFire("exit_to_transition_panel","addoutput","origin -96 814.9 -168",0.1)
+
+		EntFire("catapult_1", "addoutput", "OnCatapulted faith_plate-catapult_model:skin:1", 0.1)
+		EntFire("faith_plate-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faith_plate-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
 	}
 
 	if (curMap == "mp_coop_catapult_wall_intro")
 	{
 		EntFire("switch_door_1_panel","addoutput","origin -304 -638.9 79.668",0.1)
+		EntFire("catapult6", "addoutput", "OnCatapulted faith_plate_01-catapult_model:skin:1", 0.1)
+		EntFire("faith_plate_01-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faith_plate_01-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+
+		EntFire("catapult2", "addoutput", "OnCatapulted faith_plate_02-catapult_model:skin:1", 0.1)
+		EntFire("faith_plate_02-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faith_plate_02-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
+
+	if (curMap == "mp_coop_wall_block")
+	{
+		EntFire("catapult1", "addoutput", "OnCatapulted faith_plate_up-catapult_model:skin:1", 0.1)
+		EntFire("faith_plate_up-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faith_plate_up-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
+
+	if (curMap == "mp_coop_catapult_2")
+	{
+		execScript("activatedFaithPlates", 0.1)
 	}
 
 	if (curMap == "mp_coop_turret_walls")
@@ -214,13 +300,11 @@ function MapEdits()
 
 		// Original position with fixed wall offset
 		//EntFire("turret_block_door_check","addoutput","origin 2430.9 -1216 862.442",0.1)
-
-		EntFire("prop_button","skin","1",0.1)
 	}
 
 	if (curMap == "mp_coop_turret_ball")
 	{
-		EntFire("prop_button","skin","1",0.1)
+		execScript("activatedFaithPlates", 0.1)
 	}
 
 	if (curMap == "mp_coop_wall_5")
@@ -238,20 +322,64 @@ function MapEdits()
 		//476
 	}
 
+	if (curMap == "mp_coop_tbeam_drill")
+	{
+		execScript("activatedFaithPlates", 0.1)
+	}
+
+/*
 	if (curMap == "mp_coop_tbeam_catch_grind_1")
 	{
 		//EntFire("trigger_kill_everthing", "Disable")
 		//EntFire("@command","command","script_execute mapedits/mp_coop_tbeam_catch_grind_1/killTopHurtTrigger",0.1)
 	}
+*/
+
+	if (curMap == "mp_coop_tbeam_laser_1")
+	{
+		EntFire("longfling_1_catapult1", "addoutput", "OnCatapulted faithplate-catapult_model:skin:1", 0.1)
+		EntFire("faithplate-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+
+		EntFire("catapult1", "addoutput", "OnCatapulted faithplate_2-catapult_model:skin:1", 0.1)
+		EntFire("faithplate_2-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate_2-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
+
+	if (curMap == "mp_coop_tbeam_polarity")
+	{
+		EntFire("catapult_1", "addoutput", "OnCatapulted faithplate-catapult_model:skin:1", 0.1)
+		EntFire("faithplate-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
+
+	if (curMap == "mp_coop_tbeam_polarity3")
+	{
+		EntFire("catapult6", "addoutput", "OnCatapulted faithplate_01-catapult_model:skin:1", 0.1)
+		EntFire("faithplate_01-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate_01-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+
+		EntFire("catapult2", "addoutput", "OnCatapulted faithplate_02-catapult_model:skin:1", 0.1)
+		EntFire("faithplate_02-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate_02-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
+
+	if (curMap == "mp_coop_tbeam_maze")
+	{
+		EntFire("catapult", "addoutput", "OnCatapulted faithplate-catapult_model:skin:1", 0.1)
+		EntFire("faithplate-catapult_model", "setdefaultanimation", "", 0.1)
+		EntFire("faithplate-catapult_model", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+	}
 
 	if (curMap == "mp_coop_paint_speed_fling")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_paint_speed_fling/changeButtonModel",0.1)
+		//EntFire("@command","command","script_execute mapedits/mp_coop_paint_speed_fling/changeButtonModel",0.1)
+		// Don't think i like this one bc the collision doesnt change, making it really akaward to use
 	}
 
 	if (curMap == "mp_coop_paint_speed_catch")
 	{
-		EntFire("func_button", "kill", 0.1)
+		EntFire("func_button", "kill", 0.1) // Harder to press these buttons now but it also fixes their huge collision
 		EntFire("timer_panels", "addoutput", "origin 830.9 -1184 300.931", 0.1)
 	}
 
@@ -269,12 +397,12 @@ function MapEdits()
 
 	if (curMap == "mp_coop_separation_1")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_separation_1/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_tripleaxis")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_tripleaxis/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_catapult_catch")
@@ -283,41 +411,50 @@ function MapEdits()
 		EntFire("prop_testchamber_door","addoutput","onopen !self:lock")
 		EntFire("prop_floor_cube_button","addoutput","onpressed exit_texture_toggler:kill::0.0001")
 		//EntFire("prop_floor_cube_button","addoutput","onunpressed !self:skin:1") // Dunno if i like this effect
-		EntFire("@command","command","script_execute mapedits/mp_coop_catapult_catch/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
+
+		EntFire("catapult_01", "addoutput", "OnCatapulted catapult_01_arm:skin:1", 0.1)
+		EntFire("catapult_01_arm", "setdefaultanimation", "", 0.1)
+		EntFire("catapult_01_arm", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
+
+		EntFire("catapult_02", "addoutput", "OnCatapulted catapult_02_arm:skin:1", 0.1)
+		EntFire("catapult_02_arm", "setdefaultanimation", "", 0.1)
+		EntFire("catapult_02_arm", "addoutput", "OnAnimationDone !self:skin:0", 0.1)
 	}
 
 	if (curMap == "mp_coop_2paints_1bridge")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_2paints_1bridge/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_paint_conversion")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_paint_conversion/setSkinAssemblyDropper",0.1)
+		execScript("setSkinAssemblyDropper", 0.1)
 		//EntFire("@command","command","script_execute mapedits/mp_coop_paint_conversion/setVactubeModel",0.1)
-		EntFire("@command","command","script_execute mapedits/mp_coop_paint_conversion/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_bridge_catch")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_bridge_catch/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
+		execScript("activatedFaithPlates", 0.1)
 	}
 
 	if (curMap == "mp_coop_laser_tbeam")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_laser_tbeam/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_paint_rat_maze")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_paint_rat_maze/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 	if (curMap == "mp_coop_paint_crazy_box")
 	{
 		EntFire("lighting-environment_nightvision","addoutput","OnTrigger @command:command:script_execute mapedits/mp_coop_paint_crazy_box/unstuckWall",0.1)
 		EntFire("bts_wall_playerpusher","kill","",0.1)
-		EntFire("@command","command","script_execute mapedits/mp_coop_paint_crazy_box/companionCubeEasterEgg",0.1)
+		execScript("companionCubeEasterEgg", 0.1)
 	}
 
 }
