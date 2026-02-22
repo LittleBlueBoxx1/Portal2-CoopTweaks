@@ -60,7 +60,7 @@ To install simply put the mapedits folder and mapspawn.nut file into common/Port
     - Fixed Various Antlines not working correctly in Vault Entrance
     - Added Gesture hint to Vault Entrance when reaching the final camera
         * Hint only activates when idle for long enough
-    A. **Credits:**
+    - **Credits:**
         - Co-op Bot Skins in credits are now based on both player's current skins
 
 8. **Course 6:**
