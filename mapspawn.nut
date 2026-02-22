@@ -45,11 +45,11 @@ function MapEdits()
 	// For some reason some Source games do 2+ passes with mapspawn
 	// If the game runs mapsapwn on first pass, some functions get broken due to things not being loaded correctly
 	// Therefore we force mapspawn to only work correctly on second pass when entities and functions are loaded properly
-	// We can easily check for this by seeing if the map name is loaded correctly and return if we're on first pass
 
-	// Idk if this is actually harmful, since it'd probably still do the second pass regardless, but it keeps less
-	// errors in console, so I'm keeping it this way
-	if (curMap.find("maps/") != null)
+	// Shoutouts to ServerClown for this optimization, im a lil dumb lol
+
+	// Update: idk if this even works but i really dont think it even matters so im leaving it anyway
+	if (!("Entities" in this))
 	{
 		return
 	}
@@ -124,6 +124,9 @@ function MapEdits()
 		EntFire("catapult_paint", "addoutput", "OnCatapulted catapult_model_paint:skin:1", 0.1)
 		EntFire("catapult_paint", "addoutput", "OnCatapulted catapult_model_paint:skin:0:1.5", 0.1)
 		//EntFire("catapult_paint", "addoutput", "OnCatapulted sprite_catapult_paint:ShowSprite::0.01")
+		EntFire("@command","command","script_execute mapedits/mp_coop_lobby/randomMusic")
+		//EntFire("@music_lobby_*", "StopSound")
+		//EntFire("@music_lobby_*", "StopSound", 0.5)
 
 		if (curMap == "mp_coop_lobby_3")
 		{
