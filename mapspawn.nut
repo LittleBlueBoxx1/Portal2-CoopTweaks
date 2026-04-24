@@ -289,7 +289,11 @@ function MapEdits()
 	if (curMap == "mp_coop_fling_crushers")
 	{
 		execScript("invisButtons", 0.1)
-		execScript("activatedFaithPlates", 0.1)
+		EntFire("prop_laser_catcher","addoutput","OnPowered lift_check_4_textoggle:settextureindex:1", 0.1)
+		EntFire("prop_laser_catcher","addoutput","OnUnPowered lift_check_4_textoggle:settextureindex:0", 0.1)
+		EntFire("race_button_1_checkmark", "addoutput", "origin 4001.1 -155 304", 0.1)
+		EntFire("race_button_2_checkmark", "addoutput", "origin 4001.1 -355 304", 0.1)
+		EntFire("race_button_3_checkmark", "addoutput", "origin 3329.1 1786 237", 0.1)
 	}
 
 	if (curMap == "mp_coop_fan")
@@ -325,10 +329,22 @@ function MapEdits()
 
 	if (curMap == "mp_coop_wall_5")
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_wall_5/preventStuck",0.1)
+		//EntFire("@command","command","script_execute mapedits/mp_coop_wall_5/preventStuck",0.1)
 		EntFire("camera_door_4-relay_dooropen","addoutput","OnTrigger @command:command:script_execute mapedits/mp_coop_wall_5/killExit2",0.1)
 		EntFire("button_bts2","addoutput","OnPressed !self:Lock",0.1)
 		EntFire("camera_door_4-relay_dooropen","addoutput","OnTrigger button_bts2:Press",0.1)
+		EntFire("instanceauto38-$cleanser_name", "addoutput", "origin -2296 -1024 -195", 0.1)
+
+		EntFire("camera_door_7-relay_dooropen", "addoutput", "OnTrigger instanceauto38-$cleanser_name:addoutput:origin -2296 -1024 100:0.3", 0.1)
+		EntFire("camera_door_7-relay_dooropen", "addoutput", "OnTrigger instanceauto38-$cleanser_name:addoutput:origin -1536.5 -1744 100:0.305", 0.1)
+		EntFire("camera_door_7-relay_dooropen", "addoutput", "OnTrigger instanceauto38-$cleanser_name:addoutput:origin -1536.5 -1744 -192:0.31", 0.1)
+		EntFire("camera_door_7-relay_dooropen", "addoutput", "OnTrigger @command:command:script_execute mapedits/mp_coop_wall_5/killExit1",0.1)
+
+		EntFire("camera_door_7-relay_dooropen", "addoutput", "OnTrigger camera_door-relay_doorclose:trigger", 0.1)
+
+		EntFire("@command","command","script_execute mapedits/mp_coop_wall_5/preventEndDialogueSoftlock",0.1)
+
+		execScript("fixSpritePositions", 0.1)
 	}
 
 	if (curMap == "mp_coop_tbeam_redirect")
@@ -394,6 +410,46 @@ function MapEdits()
 		EntFire("lighting-environment_nightvision","addoutput","OnTrigger @command:command:script_execute mapedits/mp_coop_paint_crazy_box/unstuckWall",0.1)
 		EntFire("bts_wall_playerpusher","kill","",0.1)
 		
+	}
+
+
+	// This map is part of DLC 2 (Perpetual Testing Initiative Update aka the Steam Workshop update)
+	// There's lots of speculation on what this map would have been used for, but it is currently, and will likely always remain unused
+	if (curMap == "mp_coop_community_hub")
+	{
+		// The button in this room is not center
+		// The center would tchnically be 0, 0, 0 but i liked the button being close to the droppers
+		EntFire("prop_button", "addoutput", "origin 96 0 0")
+	}
+
+
+/*
+This is an unused and leaked beta map found in the files of Portal: Companion Collection for the Nintendo Switch
+It is a (mostly) working co-op map from back when co-op's story was about finding human artifacts in order for Atlas & P-Body to become more human-like
+Due to being a scrapped beta map, a few elements are rather broken, or don't make sense
+These scripts and commands are used to help restore the map to what I believe is as close as possible to the original intent without fully recompiling the map
+This map can most likely be found in many places of the internet by searching for it, but it will NOT be shared as part of Co-op Tweaks, nor will I provide any links to it
+One last note: in order for this to be played online, ALL PLAYERS must have this map in their files AND be within the same directory, as any connecting players who do not have this map will be kicked from the server
+*/
+	if (curMap == "mp_coop_fling_train")
+	{
+		execScript("gladosIntroDiaSpawn", 0.1)
+		EntFire("coopman_start_plan_B", "AddOutput", "OnChangeToAllTrue relay_initiate_plan_B:Trigger::18.5", 0.1)
+		execScript("betterIntroPanels", 0.1)
+		execScript("fixHeavyDoor", 0.1)
+		execScript("fixGladosPointsDia", 0.1)
+		EntFire("relay_fling_wall_close", "Trigger", "", 0.1)
+		execScript("infiniflingRevealWall", 0.1)
+		execScript("flingsCubeButtonFix", 0.1)
+		EntFire("panel_fling_wall_timer", "AddOutput", "origin 769.1 -1586 594", 0.1)
+		EntFire("airlock_2-airlock_exit_door_open_rl", "AddOutput", "OnTrigger airlock_2-cam_2_light1:Enable::0.1", 0.1)
+		EntFire("counter_open_bts", "SetMaxValueNoFire", "1", 0.1)
+		EntFire("counter_open_bts", "AddOutput", "OnHitMax !self:Kill", 0.1)
+		execScript("placementhelper", 0.1)
+		EntFire("turret_door-security_3_door_left", "AddOutput", "OnOpen laser_spawn:SetAsActiveSpawn")
+		EntFire("@relay_explode_bots_transition", "AddOutput", "OnTrigger @glados:runscriptcode:CoopGladosBlowUpBots()", 0.1)
+		EntFire("@relay_explode_bots_transition", "AddOutput", "OnTrigger @command:command:go_to_hub:3.5", 0.1)
+		EntFire("relay_radar_turnon", "AddOutput", "OnTrigger @relay_explode_bots_transition:Trigger::30.5", 0.1)
 	}
 
 }

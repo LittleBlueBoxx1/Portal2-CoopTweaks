@@ -1,3 +1,5 @@
+deathDialogue <- false
+
 function minVal(a, b)
 {
 	return (a < b) ? a : b
@@ -49,11 +51,18 @@ function killPlayers()
 
 	while ((players = Entities.FindByClassname(players, "player")) != null)
 	{
-		if (players.GetOrigin().z < -446 || inRange(players, Vector(-1901, -1470, -260), Vector(-1980, -1546, -196)) || inRange(players, Vector(-529, -1725, -8), Vector(-460, -1795, 80)))
+		if (players.GetOrigin().x < -2292 || inRange(players, Vector(-1901, -1470, -260), Vector(-1980, -1546, -196)) || inRange(players, Vector(-529, -1725, -8), Vector(-460, -1795, 80)))
 		{
 			EntFireByHandle(players, "sethealth", "-9999999999999999", 0, null, null)
+			deathDialogue = true
 		}
 	}
+
+	if (deathDialogue)
+	{
+		EntFire("@glados", "RunScriptCode", "GladosPlayVcd(1304)")
+	}
+
 }
 
 /*
