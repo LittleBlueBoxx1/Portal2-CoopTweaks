@@ -41,6 +41,7 @@ To install simply put the mapedits folder and mapspawn.nut file into common/Port
     - Moving Wall in Catapults now kills players if obstructed
     - Invisible Buttons in Fling Crusher have been fixed
         - Instead of being removed, they are now intangible and non-interactable since removing them causes timers to not play ticking sounds
+    - Antline from laser reciever to the rising platform in Fling Crusher now changes colors as intended
     - Added Logic to respawn disk if fizzled by the lower Fizzler in Industrial Fan
 
 5. **Course 3:**
@@ -49,6 +50,12 @@ To install simply put the mapedits folder and mapspawn.nut file into common/Port
     - Fixed softlock in Bridge Testing regarding getting stuck inside Sphere Receptacles
     - Fixed potential softlock in Bridge Testing where pulling both levers with 1 person can cause the other player to get left behind
     - Fixed potential softlock in Bridge Testing where pulling both levers without activating the Light Bridge button causes the Light Bridges to remain in a cycle
+    - Added fizzler inside of the first room's heavy door to prevent potential softlock in Bridge Testing where players could bring the ball outside of the first room and drop it off the catwalk
+    - Door in first room of Bridge Testing now closes when the ball is placed
+        - This will also kill all players who are behind or inside the door when it closes
+    - GLaDOS dialogue will play when players die from softlock prevention in Bridge Testing in order to help ease confusion
+    - Fixed potential softlock in Bridge Testing where the level will not fade out when activating the teamhug trigger after already inserting the disk
+    - Changed position of env_sprite entities in Bridge Testing to match points on the Vactube instead of being placed in the air
 
 6. **Course 4:**
     - Moved Portal Placement Helper in Cooperative Funnels so that players do not need to move to fit through the door
