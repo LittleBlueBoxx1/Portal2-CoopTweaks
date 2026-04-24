@@ -15,13 +15,14 @@ To install simply put the mapedits folder and mapspawn.nut file into common/Port
     - Hint to use Ping Tool in Portal Gun room has been added
 
 2. **Hub:**
-    - Hub Course 5 Entrance on Atlas's Side now has blue lights instead of orange
+    * Hub Course 5 Entrance on Atlas's Side now has blue lights instead of orange
+    * Hub Course 5 Entrances now have an extra light where there was previously one missing
     * Rainbow Annoy Lights now work so that when pressing them, they change color
     * Rainbow Annoy Lights colorization code now allows for more vibrant visuals
     * Low resolution catwalk models have been replaced with their higher resolution counterparts
     * Course 6 now transitions players to the correct spawn points when going from Course 6's Vactube exit back to main hub
     * Added Randomized Hub music
-        * Music is now set to maximum possible value allowed by ambient_generics
+        * Music is now set to maximum possible value allowed by ambient_generics (10)
         * Music will be randomized even if some courses have not been revealed yet
 
 3. **Course 1:**
