@@ -8,14 +8,14 @@ function changeCourseFiveBlueLights()
 	{
 		if (spriteLights.GetName() == "track5-blue_sprite")
 		{
-			EntFireByHandle(spriteLights, "color", "30 30 255", 0, null, null)
+			EntFireByHandle(spriteLights, "color", "30 120 255", 0, null, null)
 
 			while ((blueTrigger = Entities.FindByClassname(blueTrigger, "trigger_playerteam")) != null)
 			{
 				if ((blueTrigger.GetOrigin() - spriteLights.GetOrigin()).Length2D() <= 100 && blueTrigger.GetName() == "track5-team_fall")
 				{
 					blueTrigger.__KeyValueFromString("targetname","track5-team_fall_blue")
-					EntFireByHandle(blueTrigger, "addoutput", "OnEndTouchBluePlayer track5-blue_sprite:color:30 30 255:0.01", 0, null, null)
+					EntFireByHandle(blueTrigger, "addoutput", "OnEndTouchBluePlayer track5-blue_sprite:color:30 120 255:0.01", 0, null, null)
 				}
 			}
 

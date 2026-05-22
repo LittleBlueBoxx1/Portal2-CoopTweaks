@@ -64,9 +64,9 @@ function fixCheckpoints()
 		}
 	}
 
-	foreach (boneFoll in bnFlwrsToDestroy)
+	for (local i = bnFlwrsToDestroy.len() - 1; i >= 0; i--)
 	{
-		boneFoll.Destroy()
+		bnFlwrsToDestroy[i].Destroy()
 	}
 			
 }

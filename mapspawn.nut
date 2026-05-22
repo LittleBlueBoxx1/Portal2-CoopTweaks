@@ -158,11 +158,13 @@ function MapEdits()
 
 	if (curMap.find("mp_coop_start") != null)
 	{
-		EntFire("@command","command","script_execute mapedits/mp_coop_start/moreHints", 0.1)
+		execScript("moreHints", 0.1)
 		EntFire("switch_door_1_panel", "addoutput", "origin -10040 -1593.1 216")
 		EntFire("switch_door_2_panel", "addoutput", "origin -9976 -1398.9 216")
 		EntFire("cube_button_door_1_check", "addoutput", "origin -9800 870.9 248")
 		EntFire("cube_button_door_2_check", "addoutput", "origin -10215 870.9 248")
+		execScript("pgunSoftlockHole", 0.1)
+		execScript("doorOrientation", 0.1)
 	}
 
 	if (curMap.find("mp_coop_lobby_") != null)
@@ -261,6 +263,8 @@ function MapEdits()
 		EntFire("info_placement_helper","addoutput","snap_to_helper_angles 1")
 
 		EntFire("@command","command","script_execute mapedits/mp_coop_fling_1/mp_coop_fling_1-placement_helper",0.1)
+
+		execScript("preventcubesoftlock", 0.1)
 	}
 
 	if (curMap == "mp_coop_catapult_1")
@@ -345,6 +349,8 @@ function MapEdits()
 		EntFire("@command","command","script_execute mapedits/mp_coop_wall_5/preventEndDialogueSoftlock",0.1)
 
 		execScript("fixSpritePositions", 0.1)
+
+		execScript("moreTriggers", 0.1)
 	}
 
 	if (curMap == "mp_coop_tbeam_redirect")
@@ -359,23 +365,35 @@ function MapEdits()
 		execScript("activatedFaithPlates", 0.1)
 	}
 
-/*
+
 	if (curMap == "mp_coop_tbeam_catch_grind_1")
 	{
-		//EntFire("trigger_kill_everthing", "Disable")
-		//EntFire("@command","command","script_execute mapedits/mp_coop_tbeam_catch_grind_1/killTopHurtTrigger",0.1)
+		execScript("standableMovingFloor", 0.1)
 	}
-*/
 
+	if (curMap == "mp_coop_tbeam_laser_1")
+	{
+		EntFire("@exit_door", "addoutput", "onopen ramp_down_relay:kill")
+	}
+
+	if (curMap == "mp_coop_tbeam_polarity")
+	{
+		EntFire("@exit_door", "addoutput", "onopen exit_ramp1-ramp_close:kill")
+		EntFire("@exit_door", "addoutput", "onopen exit_ramp2-ramp_close:kill")
+		EntFire("@exit_door", "addoutput", "onopen exit_ramp3-ramp_close:kill")
+		EntFire("@exit_door", "addoutput", "onopen exit_ramp4-ramp_close:kill")
+	}
+
+/*
 	if (curMap == "mp_coop_paint_speed_fling")
 	{
 		//EntFire("@command","command","script_execute mapedits/mp_coop_paint_speed_fling/changeButtonModel",0.1)
-		// Don't think i like this one bc the collision doesnt change, making it really akaward to use
+		// Don't think i like this one bc the collision doesnt change, making it really awkward to use
 	}
-
+*/
 	if (curMap == "mp_coop_paint_speed_catch")
 	{
-		EntFire("func_button", "kill", 0.1) // Harder to press these buttons now but it also fixes their huge collision
+		//EntFire("func_button", "kill", 0.1) // Harder to press these buttons now but it also fixes their huge collision
 		EntFire("timer_panels", "addoutput", "origin 830.9 -1184 300.931", 0.1)
 	}
 
@@ -384,6 +402,12 @@ function MapEdits()
 		EntFire("@command","command","script_execute mapedits/mp_coop_paint_longjump_intro/antlinesFix",0.1)
 		EntFire("@command","command","script_execute mapedits/mp_coop_paint_longjump_intro/hurtTriggerFix",0.1)
 		EntFire("@command","command","script_execute mapedits/mp_coop_paint_longjump_intro/hintGestureEnd",0.1)
+		EntFire("vault-case_cam_swap_players", "addoutput", "OnCase02 vault-cam_taunt_light:color:30 120 255") // Makes the camera's light change to blue when looking at blue
+		EntFire("vault-case_cam_swap_players", "addoutput", "OnCase01 vault-cam_taunt_light:color:221 136 21") // Makes the camera's light change to orange when looking at orange
+
+		EntFire("vault-relay_taunt_orange_start", "addoutput", "OnTrigger vault-cam_taunt_light:color:30 120 255:1.5")
+		EntFire("vault-relay_taunt_blue_start", "addoutput", "OnTrigger vault-cam_taunt_light:color:221 136 21:1.5")
+
 	}
 
 	if (curMap == "mp_coop_credits")
@@ -420,15 +444,24 @@ function MapEdits()
 		// The button in this room is not center
 		// The center would tchnically be 0, 0, 0 but i liked the button being close to the droppers
 		EntFire("prop_button", "addoutput", "origin 96 0 0")
+
+		local cmdEnt = Entities.CreateByClassname("point_servercommand")
+		cmdEnt.__KeyValueFromString("targetname", "@command")
+
+		// This was a script I was working on (and finished) that will not be part of co-op tweaks
+		// This was something that I felt was "out of scope" for what I wanted co-op tweaks to be, which was simply a way to better experience co-op without changing too much
+		// Granted, most players don't know what this map is to begin with, but I still treat this with the same care that I would any other map
+		//execScript("gladosStuff", 0.1)
 	}
 
 
 /*
 This is an unused and leaked beta map found in the files of Portal: Companion Collection for the Nintendo Switch
-It is a (mostly) working co-op map from back when co-op's story was about finding human artifacts in order for Atlas & P-Body to become more human-like
+It is a (somewhat) working co-op map from back when co-op's story was about finding human artifacts in order for Atlas & P-Body to become more human-like
 Due to being a scrapped beta map, a few elements are rather broken, or don't make sense
 These scripts and commands are used to help restore the map to what I believe is as close as possible to the original intent without fully recompiling the map
 This map can most likely be found in many places of the internet by searching for it, but it will NOT be shared as part of Co-op Tweaks, nor will I provide any links to it
+
 One last note: in order for this to be played online, ALL PLAYERS must have this map in their files AND be within the same directory, as any connecting players who do not have this map will be kicked from the server
 */
 	if (curMap == "mp_coop_fling_train")

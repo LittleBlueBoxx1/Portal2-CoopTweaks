@@ -30,7 +30,7 @@ function c5AddMoreLights()
 	EntFireByHandle(blueSpriteFix, "AddOutput", "origin 3648 3134 -64", 0, null, null)
 	EntFireByHandle(oranSpriteFix, "AddOutput", "origin 3360 3134 -64", 0, null, null)
 
-	EntFireByHandle(blueSpriteFix, "Color", "30 30 255", 0, null, null)
+	EntFireByHandle(blueSpriteFix, "Color", "30 120 255", 0, null, null)
 	EntFireByHandle(oranSpriteFix, "Color", "221 136 21", 0, null, null)
 
 	EntFireByHandle(blueSpriteFix, "AddOutput", "GlowProxySize 2.0", 0, null, null)
