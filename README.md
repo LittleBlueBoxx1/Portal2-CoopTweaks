@@ -24,13 +24,13 @@ Written By:
     3. Inside the **__OTHER__** mod's ```mapspawn.nut```, write/paste the command: ```IncludeScript([Name of Co-op Tweaks File Here])```, replacing ```[Name of Co-op Tweaks File Here]``` with the name and path to your file starting from the scripts/vscripts folder
         - eg. If you renamed the file to: ```cooptweaks.nut``` and left it inside of the vscripts folder, put ```IncludeScript("cooptweaks.nut")```
 
-3. **VPK Installation:**
-    To install, simply put the ```pak00_dir.vpk``` (or ```pak99_dir.vpk``` for ```v1.0.1```) file into one of the game's common directories.
-        - eg. ```portal2/```, ```portal2_dlc1/```, ```portal2_dlc2/```, ```portal2_dlc3/```, etc.
-    Once the file is placed, rename it so that its number is the highest pak number that comes next in the sequence (starting at ```pak01_dir.vpk```)
-        - eg. If the folder you're placing it in already has ```pak01_dir.vpk``` rename the co-op tweaks file to ```pak02_dir.vpk```, if a ```pak02_dir.vpk``` file already exists rename the file to ```pak03_dir.vpk```, etc.
-        - The pak number will not be read automatically by the game as a valid VPK if the pak number is below 01 (00, -01, -02, etc.)
-        - If the pak number skips a number (eg. naming the co-op tweaks file to ```pak04_dir.vpk``` without having a ```pak03_dir.vpk``` file) the game will not read the VPK automatically
+3. **VPK Installation:**  
+    To install, simply put the ```pak00_dir.vpk``` (or ```pak99_dir.vpk``` for ```v1.0.1```) file into one of the game's common directories.  
+        - eg. ```portal2/```, ```portal2_dlc1/```, ```portal2_dlc2/```, ```portal2_dlc3/```, etc.  
+    Once the file is placed, rename it so that its number is the highest pak number that comes next in the sequence (starting at ```pak01_dir.vpk```)  
+        - eg. If the folder you're placing it in already has ```pak01_dir.vpk``` rename the co-op tweaks file to ```pak02_dir.vpk```, if a ```pak02_dir.vpk``` file already exists rename the file to ```pak03_dir.vpk```, etc.  
+        - The pak number will not be read automatically by the game as a valid VPK if the pak number is below 01 (00, -01, -02, etc.)  
+        - If the pak number skips a number (eg. naming the co-op tweaks file to ```pak04_dir.vpk``` without having a ```pak03_dir.vpk``` file) the game will not read the VPK automatically  
 
 - Note that the VPK version of the mod is the **__ONLY__** one to have the modified Hub ```soundscript``` as of right now.
 
