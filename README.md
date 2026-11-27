@@ -1,7 +1,7 @@
 # Portal2-CoopTweaks
 Portal 2 Coop Tweaks is a simple script mod that modifies Co-op Maps slightly in order to improve the experience.
 Written By:
-    LittleBlueBox
+    [LittleBlueBox](https://www.youtube.com/channel/UCBJ-bRNvToZZWXeYYnJOF3Q)
 
 ## **Help From:**
 - [ServerClown](https://github.com/TestAccount-4)  
@@ -32,7 +32,7 @@ Written By:
     - The pak number will not be read automatically by the game as a valid VPK if the pak number is below 01 (00, -01, -02, etc.)  
     - If the pak number skips a number (eg. naming the co-op tweaks file to ```pak04_dir.vpk``` without having a ```pak03_dir.vpk``` file) the game will not read the VPK automatically  
 
-- Note that the VPK version of the mod is the **__ONLY__** one to have the modified Hub ```soundscript``` as of right now.
+- Note that older versions of this mod included a modified soundscript to play extra music. This has since been removed as the extra music is now precached without needing the modified sound script.
 
 
 ## **Main Changes/Features:**
@@ -41,6 +41,9 @@ Written By:
     - MapSpawn modifies certain entity properties based on current map
     - MapSpawn activates other scripts based on current map
     - All Faith Plates will now turn orange when used
+    - Softlock relating to dying while using the crouch fly glitch has been mostly fixed
+        - This only fixes ```trigger_hurt``` entities, dying in any other way will still cause the softlock
+    - Lots of raised panels now have added fizzlers to respawn cubes where appropriate if a cube is placed inside of these areas
 
 1.  **Calibration:**
     - Hint to use Ping Tool in Portal Gun room has been added
@@ -56,6 +59,7 @@ Written By:
     - Added Randomized Hub music
         - Music is now set to the maximum possible value allowed by ```ambient_generic``` entities (10)
         - Music will be randomized even if some courses have not been revealed yet
+        - Music that plays is a mix of both PeTI music and standard Hub music
 
 3. **Course 1:**
     - ```prop_indicator_panel``` entities have been moved closer to the wall in Buttons
@@ -97,10 +101,12 @@ Written By:
     - Added functionality to stand on the moving floor in Funnel Catch
     - Stairs in Funnel Laser will remain permanently raised when the door is opened
     - Panels in Cooperative Polarity will remain permanently raised when the door is opened
+    - Turrets in Turret Warehouse are multicolored now, as to represent different turret skins seen in promotional material
 
 7. **Course 5:**
     - Course 5 Airlocks now use correct dropper model
-    - Course 5 exit doors now use correct button sounds (Except for Turret Ninja)
+    - Course 5 exit doors now use correct button sounds
+    - Course 5 exit doors now have a chime effect to match clean chambers
     - Fixed various Antlines not working correctly in Vault Entrance
     - Added Gesture hint to Vault Entrance when reaching the final camera
         - Hint only activates when idle for long enough
@@ -111,14 +117,16 @@ Written By:
 
 9. **Course 6:**
     - Added Hidden Companion Cube to each map
+        - Cube Location in Gel Maze is randomized
+    - Turrets in every Course 6 map are now either multicolored, broken, or both to represent Course 6's artistic theme
     - Antlines and exit door will now remain permanently open once activated in Catapult Catch to prevent potential softlock
     - Assemblers in Maintenance now have their respective skins match which spawn point they drop to
         - This does **NOT** force either player to go into their respective colored Assembler
     - Fixed potential softlock in Crazier Box where players could get stuck in the wall once moved
-    - Removed ```trigger_push``` due to not being very good at preventing previously mentioned softlock and therefore being unnecessary
+    - Removed ```trigger_push``` from Crazier Box due to not being very good at preventing previously mentioned softlock and therefore being unnecessary
 
 10. **Other Maps:**
-    - Pedestal button in ```mp_coop_community_hub``` has been moved to be more centrally aligned in its Y position
+    - Pedestal button in ```mp_coop_community_hub``` has been moved to be more centrally aligned with the room
     - ```mp_coop_fling_train``` beta map from Portal: Companion Collection on Nintendo Switch now has functioning logic
         - Intro room's Dialogue trigger has been moved to beneath player droppers so that it activates when landing instead of when the room is walked into
         - Intro room's wall panels are invisible until rotated to prevent z-fighting
