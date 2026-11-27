@@ -1,7 +1,7 @@
 // LittleBlueBox's Map Edits
 // Written by LittleBlueBox
 
-// The original data found in mapspawn has since been moved to mapedits/coop_tweaks.nut
+// The original data found in previous versions of this mod's mapspawn has since been moved to mapedits/coop_tweaks.nut
 // This is required so that I can cancel Co-op Tweaks if we're found to be playing in challenge mode
 
 printl("==========MAPSPAWN LOADED!==========")
