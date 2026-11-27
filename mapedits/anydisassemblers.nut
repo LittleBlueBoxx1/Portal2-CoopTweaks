@@ -1,3 +1,10 @@
+// New comment from 9/20/2026
+// This was just a silly idea I had that would allow blue to go into orange's disassembler and vice versa and have it still work
+
+// The disassemblers have a set (non 0) target team though
+// and changing it to 0 (default that checks for all teams in hammer) makes it so it ACTUALLY checks for team 0 (sp team)
+// Any value changes I tried seem to not work, so I scrapped the idea
+
 // The main function
 function SwapDisassemblers()
 {

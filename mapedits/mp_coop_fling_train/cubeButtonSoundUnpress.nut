@@ -1,0 +1,1 @@
+self.EmitSound("Portal.ButtonRelease")

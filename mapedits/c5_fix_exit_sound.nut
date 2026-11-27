@@ -1,10 +1,11 @@
 function fixExitPlayerSound()
 {
-
+/*
 	if (GetMapName() == "mp_coop_paint_red_racer")
 	{
 		return
 	}
+*/
 
 	local ambientGenericDn = null
 	local ambientGenericUp = null
@@ -18,12 +19,16 @@ function fixExitPlayerSound()
 	while ((ambientGenericDn = Entities.FindByName(ambientGenericDn, "team_door-snd_airlock_button_dn")) != null)
 	{
 
+		ambientGenericDn.PrecacheSoundScript("Portal.OGButtonDepress")
+
 		EntFireByHandle(ambientGenericDn, "addoutput", "message Portal.OGButtonDepress", 0, null, null)
 
 	}
 
 	while ((ambientGenericUp = Entities.FindByName(ambientGenericUp, "team_door-snd_airlock_button_up")) != null)
 	{
+
+		ambientGenericUp.PrecacheSoundScript("Portal.OGButtonRelease")
 
 		EntFireByHandle(ambientGenericUp, "addoutput", "message Portal.OGButtonRelease", 0, null, null)
 
@@ -39,13 +44,13 @@ function fixExitPlayerSound()
 
 		EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger team_door-snd_airlock_button_dn:Kill", 0, null, null)
 		EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger team_door-snd_airlock_button_up:Kill", 0, null, null)
-
-		// Had an idea to play new sound when the door opens, similar to modern maps, but the sounds I want to use aren't precached
+		EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger exit_open_sfx:volume:10:1", 0, null, null)
 
 		//EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger !self:RunScriptFile:mapedits/c5_new_door_sound", 0, null, null)
 
-		//EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger team_door-snd_airlock_button_up:addoutput:message World.PotatoBell", 0, null, null)
-		//EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger team_door-snd_airlock_button_up:PlaySound", 2, null, null)
+		//local door = Entities.FindByName(null, "@exit_door")
+		//door.PrecacheSoundScript("World.PotatoBell")
+		EntFireByHandle(relayExitDoorOpen, "addoutput", "OnTrigger @exit_door:runscriptfile:mapedits/c5_new_door_sound:0.5", 0, null, null)
 
 	}
 

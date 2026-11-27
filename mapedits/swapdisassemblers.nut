@@ -1,3 +1,15 @@
+// Swaps disassemblers at random
+// Normally, Blue's disassembler is on the left (or right in c6), and Orange's is on the right (or left in c6)
+// This script randomly decides if the disassemblers should be swapped
+
+// Despite being included in Co-op Tweaks and even being mostly functional, this script was never used
+// The reason why was simply because the light used in the disassemblers is a simple light entity, which is baked into the map and cant be moved or modified
+// This means that even if we swapped the disassemblers, the inside light would still be the opposite color
+// eg. Orange's disassembler with a blue light emitting from the inside of it, or vice versa
+
+// If you'd like, you can reenable this script easily by removing the comment blocks (the double slashes: "//") where this code occurs
+// Simply look for the string "swapdisassemblers", ususally done using ctrl + f in your text/code editor of choice
+
 curMap <- GetMapName()
 
 function SeedRNG()
